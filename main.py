@@ -1,4 +1,6 @@
 import random
+import pickle
+import os
 
 class Book:
     def __init__(self, title, author, year):
@@ -67,9 +69,19 @@ class VideoGame:
     def __str__(self):
         return f"🎮 {self.title} – {self.platform}, {self.developer}"
 
+def zapisz_katalog(katalog, plik="katalog.pkl"):
+    with open(plik, "wb") as f:
+        pickle.dump(katalog, f)
+
+
+def wczytaj_katalog(plik="katalog.pkl"):
+    if os.path.exists(plik):
+        with open(plik, "rb") as f:
+            return pickle.load(f)
+    return []
 
 def main():
-    katalog = []
+    katalog = wczytaj_katalog()
 
     while True:
         print("\n--- KATALOG FANTASY ---")
@@ -91,6 +103,7 @@ def main():
                 year = input("Podaj rok wydania: ")
                 ksiazka = Book(title, author, year)
                 katalog.append(ksiazka)
+                zapisz_katalog(katalog)
                 print("✅ Książka dodana do katalogu!")
             except ValueError as e:
                 print(f"❌ Błąd: {e}")
@@ -134,6 +147,7 @@ def main():
                             platform = input("Nowa platforma: ")
                             developer = input("Nowy producent: ")
                             katalog[indeks - 1] = VideoGame(title, platform, developer)
+                            zapisz_katalog(katalog)
                         print("✅ Pozycja zaktualizowana!")
                     else:
                         print("❌ Nieprawidłowy numer pozycji.")
@@ -148,6 +162,7 @@ def main():
                 year = input("Podaj rok wydania: ")
                 film = Movie(title, director, year)
                 katalog.append(film)
+                zapisz_katalog(katalog)
                 print("✅ Film dodany do katalogu!")
             except ValueError as e:
                 print(f"❌ Błąd: {e}")
@@ -160,6 +175,7 @@ def main():
                 players = input("Podaj liczbę graczy: ")
                 gra = BoardGame(title, publisher, players)
                 katalog.append(gra)
+                zapisz_katalog(katalog)
                 print("✅ Gra planszowa dodana do katalogu!")
             except ValueError as e:
                 print(f"❌ Błąd: {e}")
@@ -172,6 +188,7 @@ def main():
                 developer = input("Podaj producenta: ")
                 gra = VideoGame(title, platform, developer)
                 katalog.append(gra)
+                zapisz_katalog(katalog)
                 print("✅ Gra wideo dodana do katalogu!")
             except ValueError as e:
                 print(f"❌ Błąd: {e}")
