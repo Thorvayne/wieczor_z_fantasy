@@ -1,3 +1,5 @@
+import random
+
 class Book:
     def __init__(self, title, author, year):
         if not title.strip():
@@ -78,6 +80,7 @@ def main():
         print("5. Dodaj grę planszową")
         print("6. Dodaj grę wideo")
         print("7. Zakończ")
+        print("8. Wylosuj przygodę ✨")
         wybor = input("Wybierz opcję: ")
 
         if wybor == "1":
@@ -176,6 +179,16 @@ def main():
         elif wybor == "7":
             print("Do zobaczenia!")
             break
+
+        elif wybor == "8":
+            print("\n🎲 Wylosuj przygodę ✨")
+            if not katalog:
+                print("😢 Katalog jest pusty – dodaj coś najpierw!")
+            else:
+                wybor = random.choice(katalog)
+                print("✨ Dziś wieczór spędzisz czas z:")
+                print(wybor)
+
 
         else:
             print("❗ Nieprawidłowa opcja, spróbuj ponownie.")
